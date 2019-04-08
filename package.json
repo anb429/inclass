@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "mustache-express": "^1.2.8",
+    "request": "^2.88.0"
   }
 }
