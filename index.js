@@ -8,7 +8,8 @@ app.set('view engine', 'mustache');
 app.set('views', __dirname);
 
 app.get('/', function(req, res) {
-        res.send('<html> <head></head> <body> <form method="get" action="."> Enter your name: <input type="text" name="name"> <input type="submit"> </form> </body> </html>');
+    res.send("Here's our branch version");
+        // res.send('<html> <head></head> <body> <form method="get" action="."> Enter your name: <input type="text" name="name"> <input type="submit"> </form> </body> </html>');
     }
 )
 
