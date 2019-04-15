@@ -7,11 +7,15 @@ app.engine('html', mustacheExpress());
 app.set('view engine', 'html');
 app.set('views', __dirname);
 
-appoops
-
-oops
-
-ender('foo', { 
+app.get('/', function(req, res) {
+  if (req.query.story) {
+    res.send("Cool story bro");
+    return;
+  }
+  // res.send('<html><head></head><body>');
+  // res.send("<h1>Hello" + req.query.form_input_name + "</h1>");
+  // res.send('</body></html>');
+    res.render('foo', { 
       template_variable_name: req.query.form_input_name
     });
   }
