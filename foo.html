@@ -1,10 +1,20 @@
 <html>
-    <head></head>
-    <body>
-        <form method="get" action=".">
-            Enter your age:
-            <input type="text" name="age">
-            <input type="submit"> 
-        </form>
-    </body>
+
+<head></head>
+
+<body>
+    <form method="get" action="/">
+        <h1>Hello {{ template_variable_name }}</h1>
+        <p>
+            Enter your name:
+            <input type="text" name="form_input_name">
+        </p>
+        <p>
+            Tell me your life story:
+            <textarea name="story"></textarea>
+        </p>
+        <input type="submit">
+    </form>
+</body>
+
 </html>
