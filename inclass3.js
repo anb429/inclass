@@ -24,6 +24,31 @@ app.get('/homework2c', function (req, res) {
     }
 });
 
+// input types
+
+app.get('/inputs', function (req, res) {
+    res.render('inputs');
+});
+
+// mustache example
+
+app.get('/template_example', function (req, res) {
+    res.render('template_example', {
+        bandName: "TooL",
+        someArray: [
+            {
+                name: "1"
+            },
+            {
+                name: "2"
+            },
+            {
+                name: "3"
+            },
+        ]
+    });
+});
+
 app.listen(8000, function () {
     console.log('Our first web server! Started on port 8000')
   })

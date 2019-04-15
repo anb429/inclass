@@ -1,0 +1,22 @@
+<html>
+
+<head></head>
+
+<body>
+    {{ bandName }}
+
+    {{#bandName}}
+        There is a bandname
+    {{/bandName}}
+
+    {{^bandName}}
+        There is no bandname
+    {{/bandName}}
+
+    {{#someArray}}
+        <li>{{ name }}</li>
+    {{/someArray}}
+
+</body>
+
+</html>
