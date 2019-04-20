@@ -53,6 +53,7 @@
 1. Within your Express views, use the `client.query` method to query your database. This first argument is a SQL query, like the INSERT or SELECT queries your ran from the database shell. The second argument is a callback taking an error object as the first result, and a result object as the second argument.
 
 # Getting started with Postgres + Node + Heroku
+1. Do `heroku addons:create heroku-postgresql:hobby-dev` from within your project directory. This adds a new, empty database to your Heroku project. It's totally separate from your local database, so you'll need to recreate any tables you want to use.
 1. In your index.js, check for the presence of the `process.env.DATABASE_URL` environment variable. You'll condition your argument to `new Client(...)` on this value.
 1. If the environment variable is present, you'll pass `{connectionString: process.env.DATABASE_URL, ssl: true}` as your argument to the Client constructor.
 1. Otherwise, you'll create your Client instance the same way we did above.
