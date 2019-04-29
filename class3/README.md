@@ -48,7 +48,7 @@
     - `npm install --save pg`
 1. Query your database from Node
     - Add `var { Client } = require('pg')` to your imports
-    - At the top of your file, use `var client = new Client({database: '<database-name'>});` to create a client instance.
+    - At the top of your file, use `var client = new Client({database: '<database-name>'});` to create a client instance.
     - Then a `client.connect()` line immediately afterward. This tells your client instance to go ahead and connect.
 1. Within your Express views, use the `client.query` method to query your database. This first argument is a SQL query, like the INSERT or SELECT queries your ran from the database shell. The second argument is a callback taking an error object as the first result, and a result object as the second argument.
 
