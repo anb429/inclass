@@ -7,6 +7,8 @@ app.engine('html', mustacheExpress());
 app.set('view engine', 'html');
 app.set('views', __dirname);
 
+var PORT = process.env.PORT || 8000;
+
 app.get('/', function(req, res) {
   if (req.query.story) {
     res.send("Cool story bro");
@@ -26,6 +28,6 @@ app.get('/dwd', function (req, res) {
 }
 )
 
-app.listen(8000, function () {
-  console.log('Our first web server! Started on port 8000')
+app.listen(PORT, function () {
+  console.log('Our first web server! Listining on port: ' + PORT)
 })
