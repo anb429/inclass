@@ -27,7 +27,7 @@ client.connect();
 const createUserQuery = "INSERT INTO users (username, password) VALUES ($1, $2)";
 const createSessionQuery = "INSERT INTO sessions (sessionid, user_id) VALUES ($1, $2)";
 const getUserByIDQuery = "SELECT * FROM users WHERE id=$1"; // Will return at most one row because 'id' is the primary key
-const getUserByUsernameQuery = "SELECT * FROM users WHERE username=$1"; // Will return at most one row because 'username' has a UNIQUE constraint
+// const getUserByUsernameQuery = "SELECT * FROM users WHERE username=$1"; // Will return at most one row because 'username' has a UNIQUE constraint
 const getSessionQuery = "SELECT * FROM sessions WHERE sessionid=$1"; // Will return at most one row because 'sessionid' is the primary key
 const deleteSessionQuery = "DELETE FROM sessions WHERE sessionid=$1";
 
@@ -116,7 +116,10 @@ app.post('/login', function (req, res) {
 	console.log("Login got POST:", req.body);
 	var username = req.body.username;
 
-	client.query(getUserByUsernameQuery, [username], function (err, userResult) {
+	var query = "SELECT * FROM users WHERE username='" + username + "'";
+	console.log('running query', query);
+
+	client.query(query, function (err, userResult) {
 		if (err) {
 			console.log("Login database error:", err);
 			res.redirect('/');
