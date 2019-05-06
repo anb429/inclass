@@ -1,5 +1,5 @@
 {
-  "name": "csrf",
+  "name": "auth",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,9 +9,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
     "express": "^4.16.4",
     "express-mustache": "^1.0.4",
+    "mustache-express": "^1.2.8",
     "pg": "^7.10.0"
   }
 }

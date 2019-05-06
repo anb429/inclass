@@ -1,0 +1,43 @@
+<html>
+
+<head>
+  <title>Class 6: Authentication</title>
+  <link rel="stylesheet" href="/static/main.css">
+</head>
+
+<body>
+  {{#user}}
+  <h1>You're logged in as {{ username }}!</h1>
+  {{/user}}
+
+  <div class="formgroup">
+    <h3>Register</h3>
+    <form method="post" action="/register">
+      <label for="register-username">Username:</label>
+      <input id="register-username" type="text" name="username" />
+      <label for="register-password">Password:</label>
+      <input id="register-password" type="password" name="password" />
+      <input type="Submit" />
+    </form>
+  </div>
+
+  <div class="formgroup">
+    <h3>Log in</h3>
+    <form method="post" action="/login">
+      <label for="login-username">Username:</label>
+      <input id="login-username" type="text" name="username" />
+      <label for="login-password">Password:</label>
+      <input id="login-password" type="password" name="password" />
+      <input type="Submit" />
+    </form>
+  </div>
+
+  <div class="formgroup">
+    <h3>Log out</h3>
+    <form method="post" action="/logout">
+      <input type="Submit" value="Log out" />
+    </form>
+  </div>
+</body>
+
+</html>

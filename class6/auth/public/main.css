@@ -1,0 +1,23 @@
+
+body {
+  /* Based on https://jgthms.com/web-design-in-4-minutes/ */
+  margin: 0 auto;
+  max-width: 50em;
+  font-family: "Helvetica", "Arial", sans-serif;
+  line-height: 1.5;
+  padding: 4em 1em;
+  color: #333;
+}
+
+.formgroup {
+  border: 1px solid #ddd;
+  background-color: #eee;
+  margin-bottom: 3rem;
+  padding: 1rem;
+}
+
+.formgroup input {
+  display: block;
+  width: 20em;
+  margin-bottom: 1rem;
+}
