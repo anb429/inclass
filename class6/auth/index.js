@@ -9,7 +9,6 @@ var bcrypt = require('bcrypt-nodejs');
 var crypto = require("crypto");
 var { Client } = require('pg');
 
-
 var PORT = process.env.PORT || 8000;
 
 var app = express();
@@ -93,28 +92,25 @@ function getUserFromRequest(req, callback) {
 	});
 }
 
-// app.use(function (req, res, next) {
-// 	getUserFromRequest(req, function (user) {
-// 		req.user = user;
-// 		next();
-// 	});
-// })
+app.use(function (req, res, next) {
+	getUserFromRequest(req, function (user) {
+		req.user = user;
+		next();
+	});
+})
 
 app.get('/', function (req, res) {
-
-	var user = getUserFromRequest(req, function (user) {
-		console.log('View got user:', user);
-		res.render('index', {
-			user: user
-		});
-	});
-
-
-	// res.render('index', {
-	// 	user: req.user
+	// getUserFromRequest(req, function (user) {
+	// 	console.log('View got user:', user);
+	// 	res.render('index', {
+	// 		user: user
+	// 	});
 	// });
 
 
+	res.render('index', {
+		user: req.user
+	});
 });
 
 app.get('/register', function (req, res) {
