@@ -43,45 +43,78 @@ function generateSessionID() {
 	return crypto.randomBytes(20).toString('hex');
 }
 
-app.get('/', function (req, res) {
+function getUserFromRequest(req, callback) {
 	console.log("Cookies:", req.cookies);
 
 	var sessionid = req.cookies.sessionid;
 	if (!sessionid) {
 		console.log("No session id");
-		res.render('index');
+		callback(null);
 		return;
 	}
-
 	console.log("Session ID:", sessionid);
-	client.query(getSessionQuery, [sessionid], function (err, sessionResult) {
-		console.log("Found session rows:", sessionResult.rows);
 
-		if (!sessionResult.rows.length) {
-			console.log("No session found with that sessionid");
-			res.render('index');
+	client.query(getSessionQuery, [sessionid], function (sessionError, sessionResult) {
+		if (sessionError) {
+			console.log('Got error querying session:', sessionError);
+			callback(null);
 			return;
 		}
 
+		if (!sessionResult.rows.length) {
+			console.log("No session found with that sessionid");
+			callback(null);
+			return;
+		}
+
+		console.log("Found session rows:", sessionResult.rows);
 		var session = sessionResult.rows[0];
 
-		client.query(getUserByIDQuery, [session.user_id], function (err, userResult) {
-			console.log("Found user rows:", userResult.rows);
-
-			if (!userResult.rows.length) {
-				console.log("No user found with that id");
-				res.render('index');
+		client.query(getUserByIDQuery, [session.user_id], function (userError, userResult) {
+			if (userError) {
+				console.log('Got error querying user:', userError);
+				callback(null);
 				return;
 			}
 
+			if (!userResult.rows.length) {
+				console.log("No user found with that id");
+				callback(null);
+				return;
+			}
+
+			console.log("Found user rows:", userResult.rows);
 			var user = userResult.rows[0];
 			console.log("User", user.username, "is logged in!");
-			res.render('index', {
-				user: user
-			});
+
+			callback(user);
 			return;
 		});
 	});
+}
+
+// app.use(function (req, res, next) {
+// 	getUserFromRequest(req, function (user) {
+// 		req.user = user;
+// 		next();
+// 	});
+// })
+
+app.get('/', function (req, res) {
+
+	var user = getUserFromRequest(req, function (user) {
+		console.log('View got user:', user);
+		res.render('index', {
+			user: user
+		});
+	});
+
+
+	// res.render('index', {
+	// 	user: req.user
+	// });
+
+
 });
 
 app.get('/register', function (req, res) {
@@ -136,7 +169,7 @@ app.post('/login', function (req, res) {
 			res.redirect('/');
 			return;
 		}
-		
+
 		// Username + password are valid!;
 		var sessionid = generateSessionID();
 		client.query(createSessionQuery, [sessionid, user.id], function (err, sessionResult) {
@@ -155,7 +188,7 @@ app.post('/login', function (req, res) {
 });
 
 app.post('/logout', function (req, res) {
-	client.query(deleteSessionQuery, [req.cookies.sessionid], function(err) {
+	client.query(deleteSessionQuery, [req.cookies.sessionid], function (err) {
 		if (err) {
 			console.log("Error deleting session:", err);
 		}
@@ -165,5 +198,5 @@ app.post('/logout', function (req, res) {
 });
 
 app.listen(PORT, function () {
-	console.log('App listining on port: ' + PORT)
+	console.log('App listening on port: ' + PORT)
 })
